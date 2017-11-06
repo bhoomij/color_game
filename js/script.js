@@ -12,6 +12,7 @@ resetButton.addEventListener("click", function () {
     colors = generateRandomColor(6);
     for (var i = 0; i < squares.length; i++) {
         squares[i].style.backgroundColor = colors[i];
+        console.log(colors[i])
     }
     displayColor.textContent = pickColor();
     heading.style.backgroundColor = "#232323";
@@ -24,6 +25,8 @@ for (var i = 0; i < squares.length; i++) {
 
     squares[i].addEventListener('click', function () {
         var selectedColor = this.style.backgroundColor;
+        console.log(selectedColor)
+        console.log(displayColor.textContent)
         if (selectedColor === displayColor.textContent) {
             messageDisplay.textContent = "Correct!";
             changeColor(selectedColor);
@@ -57,8 +60,8 @@ function generateRandomColor(number) {
 }
 
 function generatorColor() {
-    var r = Math.floor(Math.random() * 266);
-    var g = Math.floor(Math.random() * 266);
-    var b = Math.floor(Math.random() * 266);
+    var r = Math.floor(Math.random() * 256);
+    var g = Math.floor(Math.random() * 256);
+    var b = Math.floor(Math.random() * 256);
     return "rgb(" + r + ", " + g + ", " + b + ")";
 }
