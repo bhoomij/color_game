@@ -1,23 +1,52 @@
-colors = generateRandomColor(6);
+var numSquares = 6;
+var bodyColor = "#232323";
+var resetButtonInitText = "New Colors";
+var colors = generateRandomColor(numSquares);
 
 var squares = document.querySelectorAll(".square");
 var displayColor = document.querySelector("#displayColor");
 var messageDisplay = document.querySelector("#message");
 var heading = document.querySelector("#heading");
 var resetButton = document.querySelector("#reset");
-
+var easyButton = document.querySelector("#easy");
+var hardButton = document.querySelector("#hard");
 displayColor.textContent = pickColor();
 
+
+easyButton.addEventListener("click", function () {
+    numSquares = 3;
+    resetGame();
+    easyButton.classList.toggle('selected');
+    hardButton.classList.toggle('selected');
+});
+
+hardButton.addEventListener("click", function () {
+    numSquares = 6;
+    resetGame();
+    easyButton.classList.toggle('selected');
+    hardButton.classList.toggle('selected');
+});
+
 resetButton.addEventListener("click", function () {
-    colors = generateRandomColor(6);
-    for (var i = 0; i < squares.length; i++) {
+    resetGame();
+});
+
+function resetGame() {
+    colors = generateRandomColor(numSquares);
+
+    for (var i = 0; i < colors.length; i++) {
         squares[i].style.backgroundColor = colors[i];
-        console.log(colors[i])
     }
     displayColor.textContent = pickColor();
-    heading.style.backgroundColor = "#232323";
+    heading.style.backgroundColor = bodyColor;
+    resetButton.textContent = resetButtonInitText;
 
-});
+    if (numSquares === 3) {
+        for (var i = 3; i < squares.length; i++) {
+            squares[i].style.backgroundColor = bodyColor;
+        }
+    }
+}
 
 for (var i = 0; i < squares.length; i++) {
     squares[i].style.backgroundColor = colors[i];
@@ -25,8 +54,6 @@ for (var i = 0; i < squares.length; i++) {
 
     squares[i].addEventListener('click', function () {
         var selectedColor = this.style.backgroundColor;
-        console.log(selectedColor)
-        console.log(displayColor.textContent)
         if (selectedColor === displayColor.textContent) {
             messageDisplay.textContent = "Correct!";
             changeColor(selectedColor);
@@ -34,7 +61,8 @@ for (var i = 0; i < squares.length; i++) {
             resetButton.textContent = "Play Again";
         } else {
             messageDisplay.textContent = "Try Again";
-            this.style.backgroundColor = "#232323";
+            this.style.display = bodyColor;
+            resetButton.textContent = resetButtonInitText;
         }
     })
 
