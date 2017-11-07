@@ -2,30 +2,28 @@ var numSquares = 6;
 var bodyColor = "#232323";
 var resetButtonInitText = "New Colors";
 var colors = generateRandomColor(numSquares);
+var messageArr = ["Correct!", "Try Again"];
+var resetButtonTextArr = ["New Colors", "Play Again?"];
 
 var squares = document.querySelectorAll(".square");
 var displayColor = document.querySelector("#displayColor");
 var messageDisplay = document.querySelector("#message");
-var heading = document.querySelector("#heading");
+var heading = document.querySelector("h1");
 var resetButton = document.querySelector("#reset");
-var easyButton = document.querySelector("#easy");
-var hardButton = document.querySelector("#hard");
+var modes = document.querySelectorAll(".mode");
 displayColor.textContent = pickColor();
 
 
-easyButton.addEventListener("click", function () {
-    numSquares = 3;
-    resetGame();
-    easyButton.classList.toggle('selected');
-    hardButton.classList.toggle('selected');
-});
-
-hardButton.addEventListener("click", function () {
-    numSquares = 6;
-    resetGame();
-    easyButton.classList.toggle('selected');
-    hardButton.classList.toggle('selected');
-});
+for (var i = 0; i < modes.length; i++) {
+    modes[i].addEventListener("click", function () {
+        modes[0].classList.remove('selected');
+        modes[1].classList.remove('selected');
+        this.classList.add('selected');
+        this.textContent === "Easy" ? numSquares = 3 : numSquares = 6;
+        console.log(numSquares);
+        resetGame();
+    });
+}
 
 resetButton.addEventListener("click", function () {
     resetGame();
@@ -38,8 +36,9 @@ function resetGame() {
         squares[i].style.backgroundColor = colors[i];
     }
     displayColor.textContent = pickColor();
-    heading.style.backgroundColor = bodyColor;
-    resetButton.textContent = resetButtonInitText;
+    heading.style.backgroundColor = "steelblue";
+    resetButton.textContent = resetButtonTextArr[0];
+    messageDisplay.textContent = "";
 
     if (numSquares === 3) {
         for (var i = 3; i < squares.length; i++) {
@@ -51,26 +50,24 @@ function resetGame() {
 for (var i = 0; i < squares.length; i++) {
     squares[i].style.backgroundColor = colors[i];
 
-
     squares[i].addEventListener('click', function () {
         var selectedColor = this.style.backgroundColor;
         if (selectedColor === displayColor.textContent) {
-            messageDisplay.textContent = "Correct!";
+            messageDisplay.textContent = messageArr[0];
             changeColor(selectedColor);
             heading.style.backgroundColor = selectedColor;
-            resetButton.textContent = "Play Again";
+            resetButton.textContent = resetButtonTextArr[1];
         } else {
-            messageDisplay.textContent = "Try Again";
-            this.style.display = bodyColor;
-            resetButton.textContent = resetButtonInitText;
+            messageDisplay.textContent = messageArr[1];
+            this.style.backgroundColor = bodyColor;
+            resetButton.textContent = resetButtonTextArr[0];
         }
     })
 
 }
 
 function changeColor(color) {
-
-    for (var i = 0; i < squares.length; i++) {
+    for (var i = 0; i < colors.length; i++) {
         squares[i].style.backgroundColor = color;
     }
 }
@@ -87,9 +84,15 @@ function generateRandomColor(number) {
     return arr;
 }
 
-function generatorColor() {
+function generatorColor(data) {
     var r = Math.floor(Math.random() * 256);
     var g = Math.floor(Math.random() * 256);
     var b = Math.floor(Math.random() * 256);
-    return "rgb(" + r + ", " + g + ", " + b + ")";
+
+    // check if rgb is (35, 35, 35) which is body-color #232323, then generate other color
+    if (r === 35 && g === 35 && b == 35) {
+        return generatorColor(12);
+    } else {
+        return "rgb(" + r + ", " + g + ", " + b + ")";
+    }
 }

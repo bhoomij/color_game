@@ -1,10 +1,12 @@
 body {
     background-color: #232323;
+    margin: 0;
+    font-family: "Montserrat", "Avenir", "Arial";
 }
 
 #container {
     max-width: 600px;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 
 .square {
@@ -13,19 +15,62 @@ body {
     background-color: purple;
     padding-bottom: 30%;
     float: left;
+    border-radius: 25px;
+    transition: background 0.6s;
+    -webkit-transition: background 0.6s;
+    -moz-transition: background 0.6s;
 }
 
-#heading {
+h1 {
     color: white;
+    text-transform: uppercase;
+    text-align: center;
+    background: steelblue;
+    margin: 0;
+    letter-spacing: 2px;
+    font-weight: normal;
+    padding: 10px 0;
+    line-height: 45px;
+}
+
+#displayColor {
+    font-size: 40px;
 }
 
 #stripe {
     background: white;
-    height: 30px;
+    color: steelblue;
     text-align: center;
-    padding-top: 10px;
+}
+
+button {
+    color: steelblue;
+    border: none;
+    background: white;
+    font-size: inherit;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    height: 100%;
+    padding: 10px 5px;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    outline: none;
+}
+
+button:hover {
+    background: steelblue;
+    color: white;
+}
+
+#message {
+    font-size: inherit;
+    width: 20%;
+    display: inline-block;
 }
 
 .selected {
-    background: blue;
+    background: steelblue;
+    color: white;
 }
