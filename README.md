@@ -1,6 +1,6 @@
 # color_game
 ## Demo page
-https://the-rgb-game.herokuapp.com/index.html
+https://the-rgb-game.herokuapp.com
 
 ## Run Steps
 * Clone repo
